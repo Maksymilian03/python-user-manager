@@ -22,17 +22,4 @@ class User:
 
 
 
-User1 = User("a@b.com")
-User2 = User("ab.com")
-User3 = User("a@@b.com")
-User4 = User("a@b")
-User5 = User("a @b.com")
-
-print(User1.is_valid())
-print(User2.is_valid())
-print(User3.is_valid())
-print(User4.is_valid())
-print(User5.is_valid())
-
-
 
