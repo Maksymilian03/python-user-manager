@@ -1,29 +1,40 @@
 from user_manager import UserManager
-from user import User
-from storage import load_users, save_users
 
+def print_menu():
+    print("Witaj w User Manager! \n 1. Utwórz usera \n 2. Wyświetl userów \n 3. Zapisz \n"
+          " 4. Zakoncz i zapisz \n 5. Zakoncz\n")
 
-# user1 = User('email1@wp.pl')
-# user2 = User('email2@wp.pl')
-# user3 = User('email3@wp.pl')
-# user4 = User('email4@wp.pl')
-#
-# path = 'plik.json'
-#
-# uzytkownicy = [user1, user2, user3, user4]
-# save_users(path, uzytkownicy)
-#
-# users = load_users('plik.json')
-# for user in users:
-#     print(user.email, user.is_valid())
+path = "plik.json"
+flag = True
+manager = UserManager(path)
+while flag:
+    print_menu()
+    choice = input().strip()
+    if choice == "1":
+        email = input("Podaj email dla nowego usera: ")
+        if manager.add_user(email):
+            print("Dodano pomyślnie")
+        else:
+            print("BŁĄD w trakcie dodawania, email niepoprawny lub już istnieje")
 
-m = UserManager("nowy.json")
-m.add_user("kowalski@wp.pl")
-m.add_user("nowak@wp.pl")
-m.add_user("radzik@wp.pl")
-print(m.list_users())
-m.save()
-m2 = UserManager("nowy.json")
-print(m2.list_users())
+    elif choice == "2":
+        for user in manager.list_users():
+            print(user)
+
+    elif choice == "3":
+        manager.save()
+    elif choice == "4":
+        manager.save()
+        flag = False
+    elif choice == "5":
+        print("Czy zapisać przed wyjściem? \n 1. Tak \n 2. Nie")
+        if input() == "1":
+            manager.save()
+        else :
+            flag = False
+
+        flag = False
+    else:
+        print("Wybierz poprawną opcję")
 
 
