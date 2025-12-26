@@ -3,8 +3,9 @@ from user_manager import UserManager
 
 
 @pytest.fixture
-def empty_manager():
-    return UserManager("test.json")
+def empty_manager(tmp_path):
+    path = tmp_path / "users.json"
+    return UserManager(path)
 
 def test_add_correct_user(empty_manager):
 
@@ -28,3 +29,7 @@ def test_list_correct_users(empty_manager):
     empty_manager.add_user("test@wp.pl")
 
     assert empty_manager.list_users() == ['test@wp.pl']
+
+def test_manager_starts_empty(empty_manager):
+
+    assert empty_manager.list_users() == []
