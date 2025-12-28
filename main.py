@@ -46,7 +46,7 @@ from pydantic import BaseModel
 
 path = "plik.json"
 manager = UserManager(path)
-empty_manager = UserManager("Nieistnieje.json")
+empty_api_manager = UserManager("pustyplik.json")
 app = FastAPI()
 
 class UserCreateRequest(BaseModel):
@@ -79,12 +79,4 @@ def delete_user(email: str):
 
 @app.get("/users")
 def get_users():
-    result = empty_manager.list_users()
-
-    if isinstance(result, list):
-        return {"message": "Users get"}
-
-    raise HTTPException(
-        status_code=404,
-        detail="Users not found"
-    )
+    return manager.list_users()

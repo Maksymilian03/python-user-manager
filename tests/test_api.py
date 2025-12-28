@@ -51,3 +51,13 @@ def test_get_users_success():
     response = client.get("/users")
 
     assert response.status_code == 200
+    assert response.json() == []
+
+def test_get_users_with_data():
+    client.post("/users",json={"email": "test@wp.pl"})
+    client.post("/users",json={"email": "test2@wp.pl"})
+
+    response = client.get("/users")
+
+    assert response.status_code == 200
+    assert response.json() == ["test@wp.pl", "test2@wp.pl"]
