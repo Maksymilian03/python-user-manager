@@ -80,3 +80,13 @@ def delete_user(email: str):
 @app.get("/users")
 def get_users():
     return manager.list_users()
+
+@app.get("/users/{email}")
+def get_user(email: str):
+    user = manager.get_user(email)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return {"email": email}
+
+

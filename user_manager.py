@@ -23,6 +23,12 @@ class UserManager:
     def save(self):
         save_users(self.path, self.users)
 
+    def get_user(self, email):
+        for user in self.users:
+            if user.email == email:
+                return user
+        return None
+
     def remove_user(self, user_email):
         if user_email in self.list_users():
             for user in self.users:
@@ -30,7 +36,6 @@ class UserManager:
                     self.users.remove(user)
                     return True
         return False
-
 
 
 
