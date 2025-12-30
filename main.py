@@ -42,15 +42,14 @@ from user_manager import UserManager
 
 from storage import load_users
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from schemas import UserCreate
+
 
 path = "plik.json"
 manager = UserManager(path)
 empty_api_manager = UserManager("pustyplik.json")
 app = FastAPI()
 
-class UserCreateRequest(BaseModel):
-    email: str
 
 @app.get("/health")
 def health():
@@ -58,7 +57,7 @@ def health():
 
 
 @app.post("/users", status_code=201)
-def create_user(data: UserCreateRequest):
+def create_user(data: UserCreate):
     if not manager.add_user(data.email):
         raise HTTPException(status_code=400, detail='Invalid or duplicate email')
 
